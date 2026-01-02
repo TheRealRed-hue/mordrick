@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MORDRICK :: STATUS MONITOR</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="monitor">
+      <header class="header">
+        <h1>MORDRICK :: CODE-13</h1>
+        <button class="tab active" data-tab="status">STATUS</button>
+        <button class="tab" data-tab="records">RECORDS</button>
+        <span class="status">STATUS: ACTIVE / UNBOUND</span>
+      </header>
+
+      <main class="content">
+        <!-- LEFT PANEL -->
+        <section class="panel">
+          <h2>CORE STATUS</h2>
+          <div class="stat"><span>Vitalidade</span><span>8</span></div>
+          <div class="stat"><span>Resistência</span><span>195 (123)</span></div>
+          <div class="stat"><span>Mana</span><span>13</span></div>
+          <div class="stat"><span>Consequências</span><span>6 [1]</span></div>
+          <div class="stat"><span>Convicção</span><span>—</span></div>
+          <div class="stat"><span>Dharma</span><span>0</span></div>
+          <div class="stat"><span>Karma</span><span>0</span></div>
+
+          <h2>DEFESAS</h2>
+          <div class="stat"><span>Defesa Física</span><span>31</span></div>
+          <div class="stat"><span>Linear Físico</span><span>36</span></div>
+          <div class="stat"><span>Defesa Mágica</span><span>25</span></div>
+          <div class="stat"><span>Linear Mágico</span><span>29</span></div>
+        </section>
+
+        <!-- CENTER PANEL -->
+        <section class="center">
+          <div class="character-image glitch">
+            <!-- coloque a imagem do personagem aqui -->
+            <img src="mordrick.png" alt="Mordrick" />
+          </div>
+
+          <section class="panel">
+            <h2>MOBILIDADE</h2>
+            <div class="stat"><span>Deslocamento</span><span>18m</span></div>
+            <div class="stat"><span>Esquiva Base</span><span>10</span></div>
+          </section>
+
+          <section class="panel actions">
+            <span>Ação Principal: 1</span>
+            <span>Auxiliar: 1</span>
+            <span>Reações: 1</span>
+          </section>
+        </section>
+
+        <!-- RIGHT PANEL -->
+        <section class="panel">
+          <h2>ATRIBUTOS</h2>
+          <div class="stat"><span>Força</span><span>21 (4d12)</span></div>
+          <div class="stat"><span>Destreza</span><span>21 (4d12)</span></div>
+          <div class="stat">
+            <span>Constituição</span><span>17 (3d12)</span>
+          </div>
+          <div class="stat"><span>Inteligência</span><span>15 (5d6)</span></div>
+          <div class="stat"><span>Sabedoria</span><span>14 (3d10)</span></div>
+          <div class="stat"><span>Carisma</span><span>9 (3d6)</span></div>
+          <div class="stat"><span>Percepção</span><span>15 (5d6)</span></div>
+        </section>
+      </main>
+    </div>
+    <main class="records tab-content" id="records">
+      <div class="terminal">
+        <h2>ARCHIVE NODE :: CODE-13</h2>
+
+        <ul class="record-list">
+          <li class="record unlocked" data-record="intro">
+            ▶ Registro Incompleto
+          </li>
+          <li class="record unlocked" data-record="base">
+            ▣ Registro 02 — BASE DO ATIVO [LOCKED]
+          </li>
+
+          <li class="record locked">▣ Registro 03 [LOCKED]</li>
+          <li class="record locked">▣ Registro 04 [LOCKED]</li>
+        </ul>
+
+        <pre class="terminal-output" id="terminalOutput"></pre>
+        <div class="record-image" id="recordImage">
+          <img src="Zeus.png" alt="Mordrick" />
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
