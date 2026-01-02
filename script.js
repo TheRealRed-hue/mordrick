@@ -1,18 +1,21 @@
-// Mordrick System Monitor
+// ==============================
+// MORDRICK :: SYSTEM MONITOR
+// ==============================
+
 console.log(">> SYSTEM ONLINE :: MORDRICK / CODE-13");
 
-// espaço futuro para:
-// - animações de barra
-// - alteração dinâmica de status
-// - leitura de JSON de personagem
-
+// ==============================
+// STATUS VIVO
+// ==============================
 const status = document.querySelector(".status");
 
-// pequeno efeito de sistema vivo
 setInterval(() => {
   status.style.opacity = status.style.opacity === "0.6" ? "1" : "0.6";
 }, 2000);
 
+// ==============================
+// TABS (STATUS / RECORDS)
+// ==============================
 const tabs = document.querySelectorAll(".tab");
 const contents = document.querySelectorAll(".tab-content");
 
@@ -26,9 +29,21 @@ tabs.forEach(tab => {
   });
 });
 
-const output = document.getElementById("terminalOutput");
-const introRecord = document.querySelector(".record.unlocked");
+// ==============================
+// TERMINAL ELEMENTS
+// ==============================
+const terminalOutput = document.getElementById("terminalOutput");
+const terminalInput = document.getElementById("terminalInput");
+const recordImage = document.getElementById("recordImage");
 
+// ==============================
+// REGISTROS
+// ==============================
+const records = document.querySelectorAll(".record");
+
+// ==============================
+// REGISTRO 01 :: BOOT + LORE
+// ==============================
 const bootText = [
   "Loading Data…",
   "Loading Files…",
@@ -42,14 +57,14 @@ const bootText = [
   "Error Error Error Error Error",
   "Error Error Error Error Error",
   "Error Error Error Error Error",
-  "",
+  ""
 ];
 
 let line = 0;
 
 function typeBoot() {
   if (line < bootText.length) {
-    output.textContent += bootText[line] + "\n";
+    terminalOutput.textContent += bootText[line] + "\n";
     line++;
     setTimeout(typeBoot, 180);
   } else {
@@ -58,8 +73,9 @@ function typeBoot() {
 }
 
 function loadLore() {
-  output.textContent += "\n--- FILE RECOVERED ---\n\n";
-  output.textContent += `
+  terminalOutput.textContent += `
+--- FILE RECOVERED ---
+
 Mordrick.
 Esse é o nome que ele usa agora. Não porque lhe foi dado, mas porque foi escolhido. Antes disso, nomes não existiam. Apenas números.
 
@@ -136,89 +152,93 @@ Hoje, vive de caçadas. Recebe nomes, descrições, alvos. Não pergunta o motiv
 Mas é um começo.
 
 E, pela primeira vez, a escolha foi dele.
-
+--- END OF FILE ---
 `;
 }
 
+// ==============================
+// REGISTRO 02 :: SENHA PROMETEUS
+// ==============================
+let inputMode = false;
+let typedPassword = "";
 
-introRecord.addEventListener("click", () => {
-  output.textContent = "";
-  line = 0;
-  typeBoot();
+function openPasswordTerminal() {
+  terminalOutput.textContent = "";
+  recordImage.style.display = "none";
+  typedPassword = "";
+  inputMode = true;
+
+  terminalOutput.innerHTML =
+    "ENTER ACCESS KEY:\n> <span id='cursor' class='cursor'>█</span>";
+
+  terminalInput.focus();
+}
+
+document.addEventListener("keydown", (e) => {
+  if (!inputMode) return;
+
+  if (e.key === "Backspace") {
+    typedPassword = typedPassword.slice(0, -1);
+  } 
+  else if (e.key === "Enter") {
+    validatePassword();
+    return;
+  } 
+  else if (e.key.length === 1) {
+    typedPassword += e.key.toUpperCase();
+  }
+
+  terminalOutput.innerHTML =
+    "ENTER ACCESS KEY:\n> " +
+    "*".repeat(typedPassword.length) +
+    "<span id='cursor' class='cursor'>█</span>";
 });
 
+function validatePassword() {
+  inputMode = false;
+  terminalOutput.textContent += "\n";
 
-const records = document.querySelectorAll(".record");
-const recordImage = document.getElementById("recordImage");
-
-records.forEach(record => {
-  record.addEventListener("click", () => {
-    const type = record.dataset.record;
-
-    if (type === "base") {
-      requestPassword();
-    }
-  });
-});
-
-
-function requestPassword() {
-  const password = prompt("ENTER ACCESS KEY:");
-
-  if (!password) return;
-
-  if (password === "PROMETEUS") {
-    unlockBaseRecord();
+  if (typedPassword === "PROMETEUS") {
+    glitchTerminal(1200);
+    setTimeout(unlockBaseRecord, 700);
   } else {
-    terminalOutput.textContent = "ACCESS DENIED\n";
+    terminalOutput.textContent += "ACCESS DENIED\n";
     glitchTerminal(600);
+    setTimeout(openPasswordTerminal, 800);
   }
 }
 
-
-function glitchTerminal(duration = 400) {
-  const terminal = document.querySelector(".terminal");
-  terminal.classList.add("glitch-hard");
-
-  setTimeout(() => {
-    terminal.classList.remove("glitch-hard");
-  }, duration);
-}
-
-
+// ==============================
+// REGISTRO 02 :: BASE DO ATIVO
+// ==============================
 function unlockBaseRecord() {
   terminalOutput.textContent = "";
-  recordImage.style.display = "none";
-
-  glitchTerminal(1200);
+  glitchTerminal(1000);
 
   const baseText = [
-
-  "ACESSO CONCEDIDO",
-  "CHAVE ACEITA :: PROMETEUS",
-  "",
-  ">> CARREGANDO REGISTRO BASE",
-  ">> AVISO: ARQUIVO PARCIALMENTE CORROMPIDO",
-  "",
-  "DESIGNAÇÃO: CÓDIGO-13",
-  "NOME ATUAL: MORDRICK",
-  "ESPÉCIE: HÍBRIDO LIANG / HUMANO",
-  "CLASSIFICAÇÃO: ATIVO BIO-ARMAMENTISTA",
-  "STATUS: NÃO VINCULADO",
-  "",
-  "ORIGEM:",
-  "INDIVÍDUO NASCIDO DE UNIÃO PROIBIDA.",
-  "GENITORES ELIMINADOS ANTES DA FORMAÇÃO DE MEMÓRIA.",
-  "SUJEITO RETIDO PARA ESTUDO E APLICAÇÃO EM CAMPO.",
-  "",
-  "OBSERVAÇÕES:",
-  "DESEMPENHO FÍSICO EXCEDE LIMITES HUMANOS.",
-  "PERFIL PSICOLÓGICO: INCONCLUSIVO.",
-  "RESPOSTA EMPÁTICA: ABERRANTE, PORÉM PRESENTE.",
-  "",
-  "[FIM DOS DADOS ESTÁVEIS]"
-
-
+    "ACESSO CONCEDIDO",
+    "CHAVE ACEITA :: PROMETEUS",
+    "",
+    ">> CARREGANDO REGISTRO BASE",
+    ">> AVISO: ARQUIVO PARCIALMENTE CORROMPIDO",
+    "",
+    "DESIGNAÇÃO: CÓDIGO-13",
+    "NOME ATUAL: MORDRICK",
+    "ESPÉCIE: HÍBRIDO LIANG / HUMANO",
+    "CLASSIFICAÇÃO: ATIVO BIO-ARMAMENTISTA",
+    "STATUS: NÃO VINCULADO",
+    "",
+    "ORIGEM:",
+    "INDIVÍDUO NASCIDO DE UNIÃO PROIBIDA.",
+    "GENITORES ELIMINADOS ANTES DA FORMAÇÃO DE MEMÓRIA.",
+    "SUJEITO RETIDO PARA ESTUDO E APLICAÇÃO EM CAMPO.",
+    "",
+    "OBSERVAÇÕES:",
+    "DESEMPENHO FÍSICO EXCEDE LIMITES HUMANOS.",
+    "PERFIL PSICOLÓGICO: INCONCLUSIVO.",
+    "RESPOSTA EMPÁTICA: ABERRANTE, PORÉM PRESENTE.",
+    "",
+    "[FIM DOS DADOS ESTÁVEIS]"
   ];
 
   let i = 0;
@@ -234,3 +254,35 @@ function unlockBaseRecord() {
 
   typeBase();
 }
+
+// ==============================
+// GLITCH
+// ==============================
+function glitchTerminal(duration = 400) {
+  const terminal = document.querySelector(".terminal");
+  terminal.classList.add("glitch-hard");
+
+  setTimeout(() => {
+    terminal.classList.remove("glitch-hard");
+  }, duration);
+}
+
+// ==============================
+// CLIQUE NOS REGISTROS
+// ==============================
+records.forEach(record => {
+  record.addEventListener("click", () => {
+    const type = record.dataset.record;
+
+    terminalOutput.textContent = "";
+
+    if (type === "intro") {
+      line = 0;
+      typeBoot();
+    }
+
+    if (type === "base") {
+      openPasswordTerminal();
+    }
+  });
+});
