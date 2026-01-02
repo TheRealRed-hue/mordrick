@@ -312,3 +312,52 @@ body {
     opacity: 0;
   }
 }
+
+/* ==========================
+   TERMINAL KEYBOARD
+========================== */
+
+.terminal-keyboard {
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid #1c2a38;
+  background: rgba(8, 14, 20, 0.95);
+  display: none;
+  gap: 6px;
+}
+
+.records.active .terminal-keyboard {
+  display: block;
+}
+
+.terminal-keyboard .keys {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.terminal-keyboard button {
+  background: #0b1622;
+  border: 1px solid #24384d;
+  color: #9fb4c7;
+  font-family: Consolas, monospace;
+  font-size: 14px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.terminal-keyboard button:hover {
+  background: #142536;
+  color: #c3e4ff;
+}
+
+.terminal-keyboard .actions {
+  margin-top: 8px;
+  justify-content: space-between;
+}
+
+.terminal-keyboard .actions button {
+  flex: 1;
+  font-weight: bold;
+}
