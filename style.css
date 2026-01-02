@@ -231,3 +231,84 @@ body {
     opacity: 1;
   }
 }
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .center {
+    grid-column: span 2;
+    flex-direction: row;
+  }
+
+  .character-image {
+    height: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+    align-items: flex-start;
+  }
+
+  .monitor {
+    height: auto;
+    padding: 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .panel {
+    font-size: 11px;
+  }
+
+  .character-image {
+    height: 220px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .glitch-hard {
+    animation-duration: 0.3s;
+  }
+}
+
+#terminalInput {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
