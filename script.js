@@ -1,6 +1,7 @@
 // ==============================
 // MORDRICK :: SYSTEM MONITOR
 // ==============================
+const keyboard = document.getElementById("terminalKeyboard");
 
 console.log(">> SYSTEM ONLINE :: MORDRICK / CODE-13");
 
@@ -284,5 +285,41 @@ records.forEach(record => {
     if (type === "base") {
       openPasswordTerminal();
     }
+  });
+});
+
+// ==============================
+// KEYBOARD VIRTUAL (MOBILE)
+// ==============================
+
+const keyboardButtons = keyboard.querySelectorAll("button");
+
+keyboardButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (!inputMode) return;
+
+    const action = btn.dataset.action;
+    const cursorHTML = "<span id='cursor' class='cursor'>█</span>";
+
+    // DELETE
+    if (action === "delete") {
+      typedPassword = typedPassword.slice(0, -1);
+    }
+
+    // ENTER
+    else if (action === "enter") {
+      validatePassword();
+      return;
+    }
+
+    // LETRAS
+    else {
+      typedPassword += btn.textContent.toUpperCase();
+    }
+
+    terminalOutput.innerHTML =
+      "ENTER ACCESS KEY:\n> " +
+      "*".repeat(typedPassword.length) +
+      cursorHTML;
   });
 });
